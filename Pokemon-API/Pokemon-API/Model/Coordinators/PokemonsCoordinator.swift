@@ -1,10 +1,3 @@
-//
-//  PokemonsCoordinator.swift
-//  Pokemon-API
-//
-//  Created by Віталій on 25.03.2021.
-//
-
 import UIKit
 
 final class PokemonsCoordinator: Coordinator {
@@ -18,7 +11,15 @@ final class PokemonsCoordinator: Coordinator {
     }
     
     func start() {
-        let pokemonsViewController = PokemonsViewController()
+        let viewModel = PokemonsViewModel()
+        viewModel.coordinator = self
+        let pokemonsViewController = PokemonsViewController(viewModel: viewModel)
         navigationController.setViewControllers([pokemonsViewController], animated: false)
+    }
+    
+    func startNewPokemon() {
+        let newPokemonCoordinator = NewPokemonCoordinator(navigationController: navigationController)
+        children.append(newPokemonCoordinator)
+        newPokemonCoordinator.start()
     }
 }

@@ -1,10 +1,3 @@
-//
-//  AppCoordinator.swift
-//  Pokemon-API
-//
-//  Created by Віталій on 25.03.2021.
-//
-
 import UIKit
 
 protocol Coordinator {

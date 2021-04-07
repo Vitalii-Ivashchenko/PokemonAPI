@@ -1,11 +1,3 @@
-//
-//  PokemonCharacter+CoreDataProperties.swift
-//  Pokemon-API
-//
-//  Created by Віталій on 25.03.2021.
-//
-//
-
 import Foundation
 import CoreData
 
@@ -16,9 +8,9 @@ extension PokemonCharacter {
         return NSFetchRequest<PokemonCharacter>(entityName: "PokemonCharacter")
     }
 
-    @NSManaged public var name: String?
-    @NSManaged public var url: URL?
     @NSManaged public var image: Data?
+    @NSManaged public var name: String?
+    @NSManaged public var detailURL: URL?
 
 }
 
