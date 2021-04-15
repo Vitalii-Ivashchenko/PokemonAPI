@@ -1,20 +1,18 @@
-import Foundation
+import UIKit
 
-struct PokemonResponse: Decodable {
-    
-    let pokemons: [Pokemon]
+struct Pokemon {
+    let name: String
+    let image: UIImage
+    let baseExperience: Double
+    let height: Double
+    let weight: Double
     
     enum CodingKeys: String, CodingKey {
-        case pokemons = "results"
+        case name, image, baseExperience = "base_experience", height, weight
     }
     
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        pokemons = try container.decode([Pokemon].self, forKey: .pokemons)
-    }
-}
-
-struct Pokemon: Decodable {
-    let name: String
-    let url: String
+//    init(from decoder: Decoder) throws {
+//        let container = try decoder.container(keyedBy: CodingKeys.self)
+//        let
+//    }
 }

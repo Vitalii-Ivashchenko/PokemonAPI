@@ -5,21 +5,30 @@ final class PokemonsViewModel {
     let title = "Pokemons"
     
     var coordinator: PokemonsCoordinator?
+    var updateView: (() -> ())?
     
     private var pokemons = [Pokemon]()
+    private let service: PokemonServiceProtocol
     
-    var updateView: (([Pokemon]) -> ())?
+    init(service: PokemonServiceProtocol) {
+        self.service = service
+    }
+    
+    var numberOfRows: Int {
+        return pokemons.count
+    }
     
     func getPokemons() {
-        NetworkManager.request(decodeType: PokemonResponse.self, urlString: "https://pokeapi.co/api/v2/pokemon/?limit=100000") { [weak self] (result) in
+        service.getPokemons { [weak self] pokemons in
             
-            switch result {
-            case .success(let response):
-                self?.updateView?(response.pokemons)
-            case .failure(_):
-                break
-            }
+            guard let self = self, let pokemons = pokemons else { return }
+            self.pokemons = pokemons
+            self.updateView?()
         }
+    }
+    
+    func getPokemon(at indexPath: IndexPath) -> Pokemon {
+        return pokemons[indexPath.row]
     }
     
     func tappedAddPokemon() {

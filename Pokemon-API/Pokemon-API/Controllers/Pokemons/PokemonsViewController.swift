@@ -22,21 +22,10 @@ class PokemonsViewController: UITableViewController {
         setupNavigationViews()
         setupSearchController()
         
-        viewModel.updateView = { data in
-            print("Something happened!")
+        viewModel.getPokemons()
+        viewModel.updateView = { [unowned self] in
+            self.tableView.reloadData()
         }
-        
-//        let url = URL(string: "https://www.googleapis.com/customsearch/v1?q=bulbasaur&num=1&key=AIzaSyAutyBO1nKj3TS6D9gJHxpB6PLY44ZzN70&cx=a9c734f58c720acac&searchType=image&alt=json")!
-//        let request = URLRequest(url: url, cachePolicy: .returnCacheDataElseLoad)
-//        URLSession.shared.dataTask(with: request) { data, response, error in
-//
-//            let asd = try! JSONDecoder().decode(GoogleResponse.self, from: data!)
-//            print(asd.items.first?.link ?? "")
-//
-//            URLSession.shared.dataTask(with: asd.items.first?.link!, ca) { daat, response, error
-//
-//            }
-//        }.resume()
     }
     
     private func setupNavigationViews() {
@@ -64,7 +53,7 @@ class PokemonsViewController: UITableViewController {
     // MARK: - UICollectionViewDataSource
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return viewModel.numberOfRows
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -72,12 +61,15 @@ class PokemonsViewController: UITableViewController {
             return UITableViewCell()
         }
          
-//        let pokemon = pokemons[indexPath.row]
-//        //print(pokemon.url)
-//        cell.pokemonImage.image = UIImage(systemName: "xmark")
-//        cell.name.text = pokemon.name.capitalizeFirstLetter()
+        let pokemon = viewModel.getPokemon(at: indexPath)
+        cell.pokemonImage.image = pokemon.image
+        cell.nameLabel.text = pokemon.name.capitalizeFirstLetter()
         
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
     }
     
     // MARK: - Initializers
@@ -88,8 +80,7 @@ class PokemonsViewController: UITableViewController {
     }
     
     required init?(coder: NSCoder) {
-        self.viewModel = PokemonsViewModel()
-        super.init(coder: coder)
+        fatalError("init(coder:) has not been implemented")
     }
 }
 

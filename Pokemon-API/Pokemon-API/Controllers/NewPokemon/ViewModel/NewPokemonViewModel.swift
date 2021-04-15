@@ -1,13 +1,19 @@
-//
-//  NewPokemonViewModel.swift
-//  Pokemon-API
-//
-//  Created by Віталій on 07.04.2021.
-//
-
 import Foundation
 
-class NewPokemonViewModel {
+final class NewPokemonViewModel: NewPokemonViewModelProtocol {
     
+    var name: String? {
+        didSet {
+            didChangeName?(self)
+        }
+    }
     
+    var didChangeName: ((NewPokemonViewModelProtocol) -> ())?
+    var didChangeBaseExperience: ((NewPokemonViewModelProtocol) -> ())?
+    var didChangeHeight: ((NewPokemonViewModelProtocol) -> ())?
+    var didChangeWidth: ((NewPokemonViewModelProtocol) -> ())?
+    
+    func addNewPokemon(_ pokemon: Pokemon) {
+        // TODO: Save into database
+    }
 }

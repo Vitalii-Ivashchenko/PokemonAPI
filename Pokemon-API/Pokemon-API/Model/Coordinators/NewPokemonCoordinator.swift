@@ -11,7 +11,8 @@ final class NewPokemonCoordinator: Coordinator {
     }
     
     func start() {
-        let newPokemonController = NewPokemonVC()
+        let viewModel = NewPokemonViewModel()
+        let newPokemonController = NewPokemonVC(viewModel: viewModel)
         navigationController.present(newPokemonController, animated: true)
     }
 }

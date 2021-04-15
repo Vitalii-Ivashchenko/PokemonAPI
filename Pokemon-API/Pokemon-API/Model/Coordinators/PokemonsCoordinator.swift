@@ -11,7 +11,8 @@ final class PokemonsCoordinator: Coordinator {
     }
     
     func start() {
-        let viewModel = PokemonsViewModel()
+        let service = PokemonWebService()
+        let viewModel = PokemonsViewModel(service: service)
         viewModel.coordinator = self
         let pokemonsViewController = PokemonsViewController(viewModel: viewModel)
         navigationController.setViewControllers([pokemonsViewController], animated: false)
